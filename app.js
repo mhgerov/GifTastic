@@ -22,6 +22,7 @@ $(document).ready(function () {
 		evt.preventDefault();
 		var search = $('#new-text').val().trim();
 		$(bv).append($('<button>').text(search).attr('class','search'));
+		drawGifs(search);
 	});
 
 	//Create click event for imgs: switch b/w still & animated
