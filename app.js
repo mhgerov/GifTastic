@@ -42,15 +42,18 @@ function drawGifs(topic) {
 	$(g).empty();
 	var url = "https://api.giphy.com/v1/gifs/search?q="+topic+"&api_key=UI353geiJj9Q4GEjZy7qgGT5vqoeJ4nj&limit=10";
 	$.get(url, function (res) {
+		console.log(res);
 		for (var i=0;i<res.data.length;i++) {
-			var newEl = $('<span>')
-			var newImg = $('<img>').attr('src',res.data[i].images.fixed_width_small_still.url); //img src=still
-			newImg.attr('data-still',res.data[i].images.fixed_width_small_still.url);
-			newImg.attr('data-anim',res.data[i].images.fixed_width_small.url);
+			var newCard = $('<div>').attr('class','card float-left m-2');
+			var newImg = $('<img>').attr('src',res.data[i].images.fixed_height_still.url).attr('class','card-img-top'); //img src=still
+			newImg.attr('data-still',res.data[i].images.fixed_height_still.url);
+			newImg.attr('data-anim',res.data[i].images.fixed_height.url);
 			newImg.attr('data-state','still');
-			newEl.append(newImg);
-			newEl.append($('<span>').text(res.data[i].rating));
-			$(g).append(newEl);	
+			var cardBody = $('<div>').attr('class','card-body')
+			cardBody.append($('<p>').attr('class','card-text').html('<b>Rating: '+res.data[i].rating+'</b>'));
+			newCard.append(newImg);
+			newCard.append(cardBody);
+			$(g).append(newCard);	
 		}
 	});
 }
