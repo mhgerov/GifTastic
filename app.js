@@ -6,7 +6,7 @@ var imgData;
 $(document).ready(function () {
 	//Build initial button array
 	for (var i=0; i< topics.length; i++) {
-		$(bv).append($('<button>').text(topics[i]).attr('class','search'));
+		$(bv).append($('<button>').text(topics[i]).attr('class','btn btn-secondary search'));
 	}
 
 	//Populate with gifs (with a g as in golf)
@@ -21,7 +21,7 @@ $(document).ready(function () {
 	$('#button-form').submit(function (evt) {
 		evt.preventDefault();
 		var search = $('#new-text').val().trim();
-		$(bv).append($('<button>').text(search).attr('class','search'));
+		$(bv).append($('<button>').text(search).attr('class','btn btn-secondary search'));
 		drawGifs(search);
 	});
 
