@@ -27,13 +27,13 @@ $(document).ready(function () {
 
 	//Create click event for imgs: switch b/w still & animated
 	$(document).on('click','img', function () {
-		var currURL = $(this).attr('src');
-		var stillURL = imgData[Number($(this).attr('index'))].images.fixed_width_small_still.url;
-		if (currURL == stillURL) {
-			$(this).attr('src',imgData[Number($(this).attr('index'))].images.fixed_width_small.url);
+		if ($(this).attr('data-state')=='still') {
+			$(this).attr('src',$(this).attr('data-anim'));
+			$(this).attr('data-state','anim');
 		}
 		else {
-			$(this).attr('src',imgData[Number($(this).attr('index'))].images.fixed_width_small_still.url);
+			$(this).attr('src',$(this).attr('data-still'));
+			$(this).attr('data-state','still');
 		}
 	});
 });
@@ -42,10 +42,13 @@ function drawGifs(topic) {
 	$(g).empty();
 	var url = "https://api.giphy.com/v1/gifs/search?q="+topic+"&api_key=UI353geiJj9Q4GEjZy7qgGT5vqoeJ4nj&limit=10";
 	$.get(url, function (res) {
-		imgData = res.data;
 		for (var i=0;i<res.data.length;i++) {
 			var newEl = $('<span>')
-			newEl.append($('<img>').attr('src',res.data[i].images.fixed_width_small_still.url).attr('index',i));
+			var newImg = $('<img>').attr('src',res.data[i].images.fixed_width_small_still.url); //img src=still
+			newImg.attr('data-still',res.data[i].images.fixed_width_small_still.url);
+			newImg.attr('data-anim',res.data[i].images.fixed_width_small.url);
+			newImg.attr('data-state','still');
+			newEl.append(newImg);
 			newEl.append($('<span>').text(res.data[i].rating));
 			$(g).append(newEl);	
 		}
