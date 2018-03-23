@@ -18,7 +18,8 @@ $(document).ready(function () {
 	});
 
 	//Create click event for button creator
-	$('#create-btn').click(function () {
+	$('#button-form').submit(function (evt) {
+		evt.preventDefault();
 		var search = $('#new-text').val().trim();
 		$(bv).append($('<button>').text(search).attr('class','search'));
 	});
@@ -42,7 +43,10 @@ function drawGifs(topic) {
 	$.get(url, function (res) {
 		imgData = res.data;
 		for (var i=0;i<res.data.length;i++) {
-			$(g).append($('<img>').attr('src',res.data[i].images.fixed_width_small_still.url).attr('index',i));
+			var newEl = $('<span>')
+			newEl.append($('<img>').attr('src',res.data[i].images.fixed_width_small_still.url).attr('index',i));
+			newEl.append($('<span>').text(res.data[i].rating));
+			$(g).append(newEl);	
 		}
 	});
 }
