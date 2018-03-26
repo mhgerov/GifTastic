@@ -5,14 +5,33 @@
 	<title>GifTastic by mhgerov</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src='app.js'></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
-	<div id="button-view"></div>
-	<form id="button-form">
-		<label for="new-button">New Button:</label>
-		<input id="new-text" type="text" name="new-button">
-		<input type='submit' value='Create Button'>
-	</form>
-	<div id="giphys"></div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="jumbotron text-center">
+					<h1 class="display-3">GifTasic!</h1>
+					<p>by mhgerov</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<div class="btn-group-vertical" id="button-view"></div>
+				<form id="button-form">
+					<div class="form-group">
+						<input id="new-text" type="text" name="new-button" class="form-control mb-2 mt-3">
+						<input type='submit' value='Create Button' class="btn btn-primary">
+					</div>
+				</form>
+			</div>
+			<div class="col-md-10">
+				<div id="giphys"></div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
