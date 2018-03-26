@@ -40,7 +40,13 @@ $(document).ready(function () {
 
 function drawGifs(topic) {
 	$(g).empty();
-	var url = "https://api.giphy.com/v1/gifs/search?q="+topic+"&api_key=UI353geiJj9Q4GEjZy7qgGT5vqoeJ4nj&limit=10";
+	var url = "https://api.giphy.com/v1/gifs/search?";
+	url += $.param({
+		q: topic,
+		api_key: "UI353geiJj9Q4GEjZy7qgGT5vqoeJ4nj",
+		limit: 10,
+	});
+		//new
 	$.get(url, function (res) {
 		console.log(res);
 		for (var i=0;i<res.data.length;i++) {
