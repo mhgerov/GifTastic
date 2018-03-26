@@ -2,6 +2,8 @@ var bv = '#button-view'; //jQuery ref to button container
 var g = '#giphys';
 var topics = ['rupauls drag race', 'oitnb', 'top model', 'queer eye', 'portlandia', 'snl',  'the orville'];
 var imgData;
+var currentOffset = 10;
+var currentTopic;
 
 $(document).ready(function () {
 	//Build initial button array
@@ -15,6 +17,7 @@ $(document).ready(function () {
 	//Create click events for buttons
 	$(document).on('click','.search',function () {
 		drawGifs($(this).text());
+		currentTopic = $(this).text();
 	});
 
 	//Create click event for button creator
@@ -36,10 +39,14 @@ $(document).ready(function () {
 			$(this).attr('data-state','still');
 		}
 	});
+	
+	$(document).on('click','#add-btn', addGifs);
 });
 
 function drawGifs(topic) {
 	$(g).empty();
+	currentOffset=10;
+	currentTopic = topic;
 	var url = "https://api.giphy.com/v1/gifs/search?";
 	url += $.param({
 		q: topic,
@@ -62,4 +69,30 @@ function drawGifs(topic) {
 			$(g).append(newCard);	
 		}
 	});
+}
+
+function addGifs() {
+	var url = "https://api.giphy.com/v1/gifs/search?";
+	url += $.param({
+		q: currentTopic,
+		api_key: "UI353geiJj9Q4GEjZy7qgGT5vqoeJ4nj",
+		limit: 10,
+		offset: currentOffset,
+	});
+	$.get(url, function (res) {
+		console.log(res);
+		for (var i=0;i<res.data.length;i++) {
+			var newCard = $('<div>').attr('class','card float-left m-2');
+			var newImg = $('<img>').attr('src',res.data[i].images.fixed_height_still.url).attr('class','card-img-top'); //img src=still
+			newImg.attr('data-still',res.data[i].images.fixed_height_still.url);
+			newImg.attr('data-anim',res.data[i].images.fixed_height.url);
+			newImg.attr('data-state','still');
+			var cardBody = $('<div>').attr('class','card-body')
+			cardBody.append($('<p>').attr('class','card-text').html('<b>Rating: '+res.data[i].rating+'</b>'));
+			newCard.append(newImg);
+			newCard.append(cardBody);
+			$(g).append(newCard);	
+		}
+	});
+	currentOffset+=10;
 }
